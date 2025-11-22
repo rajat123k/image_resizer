@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Image Dimension Resizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Optional: Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <h1>Image Dimension Resizer</h1>
+            <p class="subtitle">Quickly resize an image by width &amp; height (in pixels).</p>
+        </header>
+
+        <main class="card">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-container">
+                        {% for msg in messages %}
+                            <div class="flash-message">{{ msg }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="/" method="POST" enctype="multipart/form-data" class="form">
+                <div class="field">
+                    <label for="image">Select image</label>
+                    <input type="file" name="image" id="image" accept="image/*" required />
+                </div>
+
+                <div class="field-group">
+                    <div class="field">
+                        <label for="width">Width (px)</label>
+                        <input type="number" name="width" id="width" min="1" placeholder="e.g. 800" required />
+                    </div>
+                    <div class="field">
+                        <label for="height">Height (px)</label>
+                        <input type="number" name="height" id="height" min="1" placeholder="e.g. 600" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Resize &amp; Download
+                </button>
+
+                <p class="hint">
+                    The resized image will download automatically after processing.
+                </p>
+            </form>
+        </main>
+
+        <footer class="footer">
+            <span></span>
+        </footer>
+    </div>
+</body>
+</html>
